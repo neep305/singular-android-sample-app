@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <item name="buttonHeight" type="dimen">35dp</item>
+    <item name="horizontalSpacing" type="dimen">55dp</item>
+</resources>

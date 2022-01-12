@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1064451056851",
+    "project_id": "jasonsingular-b1a3b",
+    "storage_bucket": "jasonsingular-b1a3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064451056851:android:ece7e5c94c0c470e9ee026",
+        "android_client_info": {
+          "package_name": "com.jason.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1064451056851-hddrsf3e6siiemkc523ub2hdis2re2a9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRkO_KaarYizubNI2rdmlttFEGB154r0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1064451056851-hddrsf3e6siiemkc523ub2hdis2re2a9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
