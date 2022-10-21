@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,9 @@ import com.singular.sdk.SingularConfig;
 import com.singular.sdk.SingularLinkHandler;
 import com.singular.sdk.SingularLinkParams;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
 
@@ -40,23 +44,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.i(MainActivity.class.getName(), "onCreate....");
+        // activity_main layout 렌더링
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
@@ -116,11 +112,45 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, singularLinkParams.getDeeplink(), Toast.LENGTH_LONG);
                     }
                 })
-                .withCustomUserId("JasonNam")
+                .withCustomUserId("test_user_1234")
                 .withSessionTimeoutInSec(120)
                 .withLoggingEnabled()
                 .withDDLTimeoutInSec(300)
                 .withFCMDeviceToken(token);
+
+        Singular.init(this, config);
+    }
+
+    private void initSingularSDK() {
+
+        SingularConfig config = new SingularConfig(Constants.API_KEY, Constants.SECRET)
+                .withSingularLink(getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), new SingularLinkHandler() {
+                    @Override
+                    public void onResolved(SingularLinkParams singularLinkParams) {
+
+                        Log.i("DEEPLINK_KEY", singularLinkParams.getDeeplink());
+                        if (singularLinkParams.getPassthrough() != null) Log.i("PASSTHROUGH_KEY", singularLinkParams.getPassthrough());
+                        Log.i("IS_DEFERRED_KEY", String.valueOf(singularLinkParams.isDeferred()));
+
+                        deeplinkData = new Bundle();
+                        deeplinkData.putString(Constants.DEEPLINK_KEY, singularLinkParams.getDeeplink());
+                        if (singularLinkParams.getPassthrough() != null) deeplinkData.putString(Constants.PASSTHROUGH_KEY, singularLinkParams.getPassthrough());
+                        deeplinkData.putBoolean(Constants.IS_DEFERRED_KEY, singularLinkParams.isDeferred());
+
+                        // When the is opened using a deeplink, we will open the deeplink tab
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, singularLinkParams.getDeeplink(), Toast.LENGTH_LONG);
+                                Log.i("DEEPLINK RUN", "runOnUiThread() called....");
+                            }
+                        });
+                    }
+                })
+                .withCustomUserId("JasonNam")
+                .withSessionTimeoutInSec(120)
+                .withLoggingEnabled()
+                .withDDLTimeoutInSec(300);
 
         Singular.init(this, config);
 //        Singular.setFCMDeviceToken(token);
@@ -161,5 +191,12 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("singular_click_id", referrer.split("=")[1]);
             editor.commit();
         }
+    }
+
+    public Bundle getDeeplinkData() {
+        Bundle bundle = deeplinkData;
+        deeplinkData = null;
+
+        return bundle;
     }
 }

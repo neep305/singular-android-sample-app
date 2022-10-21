@@ -5,58 +5,156 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FirstFragment">
-
-    <TextView
-        android:id="@+id/textview_first"
+    <ImageView
+        android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_first_fragment"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
+        android:src="@drawable/singular_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/eventNameText"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <CheckBox
+        android:id="@+id/ctvPurchaseWithoutReceipt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PurchaseWithoutReceipt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/priceText" />
 
     <Button
         android:id="@+id/button_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_purchase" />
+        app:layout_constraintTop_toBottomOf="@id/etIsDeferred" />
 
     <Button
         android:id="@+id/button_purchase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Purchase"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
+        android:text="Revenue Event"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button_inapp_event"
+        app:layout_constraintTop_toBottomOf="@id/ctvPurchaseWithoutReceipt" />
+
+    <Button
+        android:id="@+id/button_inapp_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In app event"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventNameText" />
+        app:layout_constraintEnd_toStartOf="@id/button_purchase"
+        app:layout_constraintTop_toBottomOf="@id/ctvPurchaseWithoutReceipt"/>
 
     <EditText
         android:id="@+id/eventNameText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
-        android:inputType="text"
         android:hint="EventName"
-        app:layout_constraintBottom_toTopOf="@+id/button_purchase"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/priceText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_first" />
-
+        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
     <EditText
         android:id="@+id/priceText"
-        android:layout_width="138dp"
-        android:layout_height="43dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginBottom="68dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Price eg. 10000, 0.99"
         android:inputType="text|numberDecimal"
-        android:hint="Price"
-        app:layout_constraintBottom_toTopOf="@id/button_purchase"
-        app:layout_constraintLeft_toRightOf="@id/eventNameText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/spinner"
+        app:layout_constraintTop_toBottomOf="@+id/eventNameText" />
+
+    <Button
+        android:id="@+id/button_GotoWeb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Call a Webpage for JS Interface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_inapp_event" />
+    <TextView
+        android:id="@+id/tvDeeplink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Deep Link Value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_GotoWeb"/>
+    <EditText
+        android:id="@+id/etDeeplink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="(none)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDeeplink"/>
+    <TextView
+        android:id="@+id/tvPassthrough"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Passthrough"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDeeplink"/>
+    <EditText
+        android:id="@+id/etPassthrough"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="(none)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPassthrough"/>
+    <TextView
+        android:id="@+id/tvIsDeferred"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Is Deferred"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassthrough"/>
+    <EditText
+        android:id="@+id/etIsDeferred"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvIsDeferred"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eventNameText"
+         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
